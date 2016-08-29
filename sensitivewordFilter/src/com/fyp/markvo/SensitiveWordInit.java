@@ -32,10 +32,10 @@ public class SensitiveWordInit {
 	 * @version 1.0
 	 */
 	@SuppressWarnings("rawtypes")
-	public Map initKeyWord(){
+	public Map initKeyWord(String filePath){
 		try {
 			//读取敏感词库
-			Set<String> keyWordSet = readSensitiveWordFile();
+			Set<String> keyWordSet = readSensitiveWordFile(filePath);
 			//将敏感词库加入到HashMap中
 			addSensitiveWordToHashMap(keyWordSet);
 			//spring获取application，然后application.setAttribute("sensitiveWordMap",sensitiveWordMap);
@@ -120,10 +120,9 @@ public class SensitiveWordInit {
 	 * @throws Exception 
 	 */
 	@SuppressWarnings("resource")
-	private Set<String> readSensitiveWordFile() throws Exception{
+	private Set<String> readSensitiveWordFile(String filePath) throws Exception{
 		Set<String> set = null;
-		
-		File file = new File("D:\\SensitiveWord.txt");    //读取文件
+		File file = new File(filePath);    //读取文件
 		InputStreamReader read = new InputStreamReader(new FileInputStream(file),ENCODING);
 		try {
 			if(file.isFile() && file.exists()){      //文件流是否存在
@@ -144,4 +143,5 @@ public class SensitiveWordInit {
 		}
 		return set;
 	}
+ 
 }
